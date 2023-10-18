@@ -76,12 +76,11 @@ django-tests:
 
 # Defines the job for Cypress e2e tests
 cypress-e2e:
-    image: node:18
+    image: cypress/base:18.16.0
     stage: test
     needs: ['django-migrations', 'django-lint']
     before_script:
         - .gitlab/cypress_before_install.sh
-        - source .venv/bin/activate
     script:
         # start the server in the background
         - python3 manage.py runserver &
