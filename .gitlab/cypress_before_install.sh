@@ -1,7 +1,7 @@
 npm ci >/dev/null
 npm install cypress >/dev/null
 apt-get update >/dev/null
-apt-get install -y python3.11 python3.11-full python3-pip python3.11-venv >/dev/null
+apt-get install -y python3 python3-pip >/dev/null
 apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb >/dev/null
 pip3 install -q virtualenv
 python3 -m venv .venv

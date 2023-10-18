@@ -23,7 +23,8 @@
         ".coverage": true,
         "db.sqlite3": true,
         "staticfiles": true,
-        "htmlcov": true
+        "htmlcov": true,
+        "media": true
     },
     "search.exclude": {
         "out": true, // set this to false to include "out" folder in search results

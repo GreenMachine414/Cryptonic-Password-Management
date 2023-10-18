@@ -15,5 +15,6 @@
         "ms-python.black-formatter",
         "ms-python.isort",
         "ms-python.pylint",
+        "batisteo.vscode-django"
     ]
 }
