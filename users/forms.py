@@ -1,4 +1,5 @@
 """Forms for accounts app."""
+
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
 from users.models import CustomUser
@@ -21,4 +22,4 @@ class CustomUserChangeForm(UserChangeForm):
         """Meta class."""
 
         model = CustomUser
-        fields = ("first_name", "last_name", "email", "picture")
+        fields = ("first_name", "last_name", "email")
