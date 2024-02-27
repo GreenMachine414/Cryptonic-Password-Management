@@ -24,7 +24,8 @@
         "db.sqlite3": true,
         "staticfiles": true,
         "htmlcov": true,
-        "media": true
+        "node_modules": true,
+        ".ruff_cache": true,
     },
     "search.exclude": {
         "out": true, // set this to false to include "out" folder in search results
@@ -40,9 +41,10 @@
         "*.html": "django-html",
     },
     "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
+            "source.organizeImports.ruff": "explicit",
+            "source.fixAll.ruff": "explicit"
         },
         "editor.formatOnSave": true,
         "editor.tabSize": 4,
@@ -72,10 +74,6 @@
         },
         "editor.formatOnSave": true,
     },
-    "isort.args": [
-        "--profile",
-        "black"
-    ],
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
@@ -93,12 +91,7 @@
             "strings": true
         }
     },
-    "python.linting.enabled": true,
     "python.testing.promptToConfigure": true,
-    "python.formatting.provider": "black",
-    "python.formatting.blackArgs": [
-        "--line-length=100"
-    ],
     "javascript.preferences.quoteStyle": "single",
     "prettier.printWidth": 100,
     "prettier.singleQuote": true,
@@ -106,11 +99,6 @@
         "source.fixAll.eslint": "explicit"
     },
     "python.languageServer": "Pylance",
-    "python.linting.pylamaEnabled": true,
-    "python.linting.pylamaArgs": [
-        "--options=pylama.ini"
-    ],
-    "python.linting.lintOnSave": true,
     "python.analysis.completeFunctionParens": true,
     "python.analysis.autoImportCompletions": true,
     "python.analysis.autoSearchPaths": true,
@@ -121,16 +109,13 @@
     ],
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
-    "cSpell.enabled": true,
-    "cSpell.language": "en",
-    "cSpell.diagnosticLevel": "Hint",
-    "cSpell.ignorePaths": [
-        ".git/objects",
-        ".vscode",
-        ".venv/",
-    ],
     "terminal.integrated.defaultProfile.windows": "Git Bash",
     "terminal.integrated.defaultProfile.linux": "bash",
     "terminal.integrated.defaultProfile.osx": "zsh",
-    "files.eol": "\n",
+    "ruff.lint.args": [
+        "--line-length=100",
+    ],
+    "ruff.format.args": [
+        "--line-length=100",
+    ]
 }
