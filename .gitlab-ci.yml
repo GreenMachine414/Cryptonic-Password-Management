@@ -63,7 +63,7 @@ django-tests:
         - .gitlab/django_before_install.sh
         - source venv/bin/activate
     script:
-        - coverage run manage.py test
+        - coverage run manage.py test -v2
         - coverage xml
         - coverage report
 

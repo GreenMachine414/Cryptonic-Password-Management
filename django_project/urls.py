@@ -28,12 +28,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path(
-        "team",
+        "team/",
         TemplateView.as_view(template_name="team.html"),
         name="team",
     ),
     path(
-        "about",
+        "about/",
         TemplateView.as_view(template_name="about.html"),
         name="about",
     ),
@@ -44,9 +44,7 @@ urlpatterns = [
 urlpatterns += [
     path(
         "accounts/password_change/",
-        auth_views.PasswordChangeView.as_view(
-            template_name="registration/password_change.html"
-        ),
+        auth_views.PasswordChangeView.as_view(template_name="registration/password_change.html"),
         name="password_change",
     ),
     path(
@@ -68,9 +66,7 @@ urlpatterns += [
     ),
     path(
         "accounts/password_reset/",
-        auth_views.PasswordResetView.as_view(
-            template_name="registration/password_reset.html"
-        ),
+        auth_views.PasswordResetView.as_view(template_name="registration/password_reset.html"),
         name="password_reset",
     ),
     path(
