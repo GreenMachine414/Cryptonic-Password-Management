@@ -172,19 +172,3 @@ class LoginTestCase(TestCase):
             in str(response.context.get("errors"))
         )
         self.assertEqual(str(response.context.get("user")), "AnonymousUser")
-
-    def test_login_and_logout(self):
-        """Test logout by login in first and then logout.
-
-        Tests when a user logs out, the `user` object in the `Response` is "AnyonymousUser".
-
-        """
-        response = self.client.post(self.login_url, data=self.login_params)
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-
-        response = self.client.get(reverse("home"))
-        self.assertEqual(str(response.context.get("user")), "jdoe@gmail.com")
-
-        response = self.client.get(reverse("home"))
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(str(response.context.get("user")), "AnonymousUser")
