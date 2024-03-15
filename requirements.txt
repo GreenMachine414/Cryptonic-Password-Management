@@ -7,7 +7,6 @@ django-bootstrap5
 fontawesomefree
 gunicorn
 parameterized
-psycopg2-binary
 pytz
 soupsieve
 sqlparse
