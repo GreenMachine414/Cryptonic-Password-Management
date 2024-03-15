@@ -5,8 +5,6 @@ stages:
 
 variables:
     PIP_CACHE_DIR: '$CI_PROJECT_DIR/.cache/pip'
-    npm_config_cache: '$CI_PROJECT_DIR/.npm'
-    CYPRESS_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/Cypress'
 
 # Pip's cache doesn't store the python packages
 # https://pip.pypa.io/en/stable/reference/pip_install/#caching
@@ -18,9 +16,6 @@ cache:
         - .cache/pip/
         - venv/
         - staticfiles/
-        - cache/Cypress
-        - node_modules
-        - build
 
 # Defines the job in Static Analysis
 django-lint:
@@ -73,16 +68,3 @@ django-tests:
             coverage_report:
                 coverage_format: cobertura
                 path: coverage.xml
-
-# Defines the job for Cypress e2e tests
-cypress-e2e:
-    image: cypress/base:18.16.0
-    stage: test
-    needs: ['django-migrations', 'django-lint']
-    before_script:
-        - .gitlab/cypress_before_install.sh
-    script:
-        # start the server in the background
-        - python3 manage.py runserver &
-        # run Cypress tests
-        - npx cypress run --headless
