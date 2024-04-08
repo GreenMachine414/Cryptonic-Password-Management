@@ -62,9 +62,12 @@
                                 <div class="dropdown-divider"></div>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'logout' %}">
-                                    <i class="fa-solid fa-sign-out-alt"></i> Log out
-                                </a>
+                                <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fa-solid fa-sign-out-alt"></i> Log out
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>
