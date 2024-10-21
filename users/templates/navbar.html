@@ -3,8 +3,14 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
     <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">
-            <i class="fa-solid fa-house"></i> Cryptonic
+            <img src="{% static 'img/logo.webp' %}"
+                 alt="Logo"
+                 style="height: 30px;
+                        width: auto"
+                 width="auto"
+                 height="30">
         </a>
+        <a class="navbar-brand" href="{% url 'home' %}">Cryptonic</a>
         <button class="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
