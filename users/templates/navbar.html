@@ -9,11 +9,8 @@
                         width: auto"
                  width="auto"
                  height="30">
-        </a>
-        <a class="navbar-brand" href="{% url 'home' %}">
             Cryptonic
         </a>
-        <a class="navbar-brand" href="{% url 'home' %}">Cryptonic</a>
         <button class="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
@@ -23,7 +20,7 @@
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="#navbarsExampleDefault">
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'about' %}">
@@ -37,7 +34,7 @@
                 </li>
             </ul>
         </div>
-        <div class="navbar-collapse collapse" id="#navbarsExampleDefault">
+        <div class="navbar-collapse collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
                     <div class="dropdown">
