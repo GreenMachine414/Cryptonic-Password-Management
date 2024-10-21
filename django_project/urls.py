@@ -33,6 +33,11 @@ urlpatterns = [
         name="team",
     ),
     path(
+        "wireframes/",
+        TemplateView.as_view(template_name="wireframes.html"),
+        name="wireframes",
+    ),
+    path(
         "about/",
         TemplateView.as_view(template_name="about.html"),
         name="about",
