@@ -33,7 +33,7 @@ class CustomUser(AbstractUser):
     def __str__(self) -> str:
         """Get the string representation of the object.
 
-        Returns:
+        Returns
         -------
         str
             The unique identifier of the model, `email`.
