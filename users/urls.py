@@ -8,4 +8,6 @@ app_name = "users"
 
 urlpatterns = [
     path("signup/", users_views.SignUpView.as_view(), name="signup"),
+    path("users/add", users_views.CreateUserView.as_view(), name="create-question"),
+    path("", users_views.UserListView.as_view(), name="user-list"),
 ]
