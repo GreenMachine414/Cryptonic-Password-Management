@@ -5,7 +5,7 @@ from django.views import generic
 from django.views.generic import CreateView
 
 from users.forms import CustomUserCreationForm
-from users.models import CustomUser
+from users.models import CustomUser, Password
 
 
 class SignUpView(CreateView):
@@ -60,3 +60,47 @@ class DeleteUserView(generic.DeleteView):
     model = CustomUser
     template_name = "generic_confirm_delete.html"  # This template will ask for confirmation
     success_url = reverse_lazy("users:user-list")  # Redirect to the user list after deletion
+
+
+class CreatePasswordView(generic.CreateView):
+    """View to create passwords"""
+
+    model = Password
+    fields = ["user", "website", "website_username", "password_encrypted"]
+    success_url = reverse_lazy("users:password-list")
+    template_name = "generic_create_update_form.html"
+    extra_context = {"title_text": "Add Stored Password", "button_text": "Add"}
+
+
+class PasswordListView(generic.ListView):
+    """Password List"""
+
+    model = Password
+    queryset = Password.objects.order_by("-password_encrypted")
+    template_name = "password_list.html"
+
+
+class PasswordDetailView(generic.DetailView):
+    """Detail"""
+
+    model = Password
+    template_name = "password_details.html"
+
+
+class PasswordUpdateView(generic.UpdateView):
+    """Updating passwords"""
+
+    model = Password
+    fields = ["website", "website_username", "password_encrypted"]
+    success_url = reverse_lazy("users:password-list")
+    template_name = "generic_create_update_form.html"
+    extra_context = {"title_text": "Update Stored Password", "button_text": "Update"}
+
+
+class DeletePasswordView(generic.DeleteView):
+    """Deleting passwords"""
+
+    model = Password
+    success_url = reverse_lazy("users:password-list")
+    template_name = "generic_confirm_delete.html"
+    extra_context = {"title_text": "Delete Stored Password"}
