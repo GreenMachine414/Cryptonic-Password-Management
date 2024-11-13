@@ -30,21 +30,15 @@ class CustomUser(AbstractUser):
     num_stored_passwords = models.IntegerField(_("number of stored passwords"), default=0)
     paid_access_expires = models.DateTimeField(_("paid access expires"), null=True, blank=True)
 
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
 
     objects = CustomUserManager()
 
-    def __str__(self) -> str:
-        """Get the string representation of the object.
 
-        Returns
-        -------
-        str
-            The unique identifier of the model, `email`.
-
-        """
-        return self.email
+def __str__(self) -> str:
+    """Get the string representation of the object."""
+    return self.username if self.username else str(self.id)  # Fallback to user ID
 
 
 class Password(models.Model):
