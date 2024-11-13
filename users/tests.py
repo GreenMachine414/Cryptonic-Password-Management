@@ -1,4 +1,5 @@
 """Tests for `users` app."""
+
 from http import HTTPStatus
 
 import pytest
@@ -20,7 +21,9 @@ class UserManagerTestCase(TestCase):
         Tests if the `__str__()` of `CustomUser` returns the email address.
 
         """
-        user = CustomUser.objects.create_user(email="jdoe@gmail.com", password="password123")
+        user = CustomUser.objects.create_user(
+            username="jdoe", email="jdoe@gmail.com", password="password123"
+        )
         self.assertTrue(isinstance(user, CustomUser))
         self.assertEqual(str(user), "jdoe@gmail.com")
 
@@ -31,7 +34,7 @@ class UserManagerTestCase(TestCase):
 
         """
         with pytest.raises(ValueError) as exc_info:
-            CustomUser.objects.create_user(email=None, password=None)
+            CustomUser.objects.create_user(username=None, email=None, password=None)
         self.assertEqual(exc_info.type, ValueError)
 
     def test_create_superuser(self):
@@ -41,7 +44,9 @@ class UserManagerTestCase(TestCase):
         Tests if the `__str__()` of `CustomUser` returns the email address.
 
         """
-        user = CustomUser.objects.create_superuser(email="jdoe@gmail.com", password="password123")
+        user = CustomUser.objects.create_superuser(
+            username="jdoe", email="jdoe@gmail.com", password="password123"
+        )
         self.assertTrue(isinstance(user, CustomUser))
         self.assertEqual(str(user), "jdoe@gmail.com")
 
@@ -54,6 +59,7 @@ class UserManagerTestCase(TestCase):
         """
         with pytest.raises(ValueError) as exc_info:
             CustomUser.objects.create_superuser(
+                username="jdoe",
                 email="jdoe1@gmail.com",
                 password="password123",
                 is_staff=False,
@@ -69,6 +75,7 @@ class UserManagerTestCase(TestCase):
         """
         with pytest.raises(ValueError) as exc_info:
             CustomUser.objects.create_superuser(
+                username="jdoe",
                 email="jdoe1@gmail.com",
                 password="password123",
                 is_superuser=False,
@@ -81,16 +88,20 @@ class CustomUserTestCase(TestCase):
 
     def test_create(self):
         """Tests if `CustomUser`'s `create()` method is working using a query."""
-        user = CustomUser.objects.create(email="jdoe@gmail.com", password="password123")
+        user = CustomUser.objects.create(
+            username="jdoe", email="jdoe@gmail.com", password="password123"
+        )
         query = CustomUser.objects.get(email="jdoe@gmail.com")
         self.assertEqual(user, query)
 
     def test_create_user_rasies_not_unique_integrity_error_with_same_email(self):
         """Tests if `CustomUser`'s `create()` method raises an `IntegrityError`."""
-        CustomUser.objects.create(email="jdoe@gmail.com", password="password123")
+        CustomUser.objects.create(username="jdoe", email="jdoe@gmail.com", password="password123")
 
         with pytest.raises(IntegrityError) as exc_info:
-            CustomUser.objects.create(email="jdoe@gmail.com", password="password123")
+            CustomUser.objects.create(
+                username="jdoe", email="jdoe@gmail.com", password="password123"
+            )
         self.assertEqual(exc_info.type, IntegrityError)
 
 
@@ -142,7 +153,9 @@ class LoginTestCase(TestCase):
         self.logout_url = reverse("logout")
 
         self.login_params = {"username": "jdoe@gmail.com", "password": "p@$$W0RDL@rG3"}
-        CustomUser.objects.create_user(email="jdoe@gmail.com", password="p@$$W0RDL@rG3")
+        CustomUser.objects.create_user(
+            username="jdoe", email="jdoe@gmail.com", password="p@$$W0RDL@rG3"
+        )
 
     def test_signinview(self):
         """Test `SignUpView`, it should redirect."""
@@ -154,7 +167,9 @@ class LoginTestCase(TestCase):
 
     def test_logged_in_user_sees_correct_template(self):
         """Test if logged in user sees the password change page."""
-        response = self.client.login(email="jdoe@gmail.com", password="p@$$W0RDL@rG3")
+        response = self.client.login(
+            username="jdoe", email="jdoe@gmail.com", password="p@$$W0RDL@rG3"
+        )
         response = self.client.get(reverse("password_change"))
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "registration/password_change.html")
