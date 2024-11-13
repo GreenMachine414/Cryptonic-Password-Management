@@ -26,7 +26,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     first_name = models.CharField(_("first name"), max_length=150)
     last_name = models.CharField(_("last name"), max_length=150)
-    is_paid = models.BooleanField(_("is paid"), default=False)
+    is_paid = models.BooleanField(_("is paid"), default=True)
     num_stored_passwords = models.IntegerField(_("number of stored passwords"), default=0)
     paid_access_expires = models.DateTimeField(_("paid access expires"), null=True, blank=True)
 
