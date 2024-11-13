@@ -9,7 +9,7 @@ from django.views.generic import CreateView
 from users.forms import CustomUserCreationForm
 from users.models import CustomUser, Password
 
-from .mixins import CustomLoginRequiredMixin
+from .mixins import PaidUserRequiredMixin
 
 
 class SignUpView(CreateView):
@@ -80,7 +80,7 @@ class DeleteUserView(UserPassesTestMixin, generic.DeleteView):
         return True
 
 
-class CreatePasswordView(CustomLoginRequiredMixin, generic.CreateView):
+class CreatePasswordView(PaidUserRequiredMixin, generic.CreateView):
     """View to create passwords"""
 
     model = Password
@@ -98,7 +98,7 @@ class CreatePasswordView(CustomLoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
 
-class PasswordListView(CustomLoginRequiredMixin, generic.ListView):
+class PasswordListView(PaidUserRequiredMixin, generic.ListView):
     """View to list passwords created by the logged-in user"""
 
     model = Password
@@ -110,14 +110,14 @@ class PasswordListView(CustomLoginRequiredMixin, generic.ListView):
         return Password.objects.filter(user=self.request.user)
 
 
-class PasswordDetailView(CustomLoginRequiredMixin, generic.DetailView):
+class PasswordDetailView(PaidUserRequiredMixin, generic.DetailView):
     """Detail"""
 
     model = Password
     template_name = "password_details.html"
 
 
-class PasswordUpdateView(CustomLoginRequiredMixin, generic.UpdateView):
+class PasswordUpdateView(PaidUserRequiredMixin, generic.UpdateView):
     """Updating passwords"""
 
     model = Password
@@ -127,7 +127,7 @@ class PasswordUpdateView(CustomLoginRequiredMixin, generic.UpdateView):
     extra_context = {"title_text": "Update Stored Password", "button_text": "Update"}
 
 
-class DeletePasswordView(CustomLoginRequiredMixin, generic.DeleteView):
+class DeletePasswordView(PaidUserRequiredMixin, generic.DeleteView):
     """Deleting passwords"""
 
     model = Password
