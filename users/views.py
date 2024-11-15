@@ -9,7 +9,7 @@ from django.views.generic import CreateView
 from users.forms import CustomUserCreationForm
 from users.models import CustomUser, Password
 
-from .mixins import PaidUserRequiredMixin
+from .mixins import CustomLoginRequiredMixin, PaidUserRequiredMixin
 
 
 class SignUpView(CreateView):
@@ -134,3 +134,11 @@ class DeletePasswordView(PaidUserRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("users:password-list")
     template_name = "generic_confirm_delete.html"
     extra_context = {"title_text": "Delete Stored Password"}
+
+
+class StrengthCheckerView(CustomLoginRequiredMixin, generic.TemplateView):
+    """View to display the password strength checker page."""
+
+    success_url = reverse_lazy("users:strength-checker")
+    template_name = "strength_checker.html"
+    login_url = "/accounts/login/"  # Ensure this path matches your project's login path
