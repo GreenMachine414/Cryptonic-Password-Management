@@ -23,4 +23,9 @@ urlpatterns = [
         users_views.DeletePasswordView.as_view(),
         name="delete-password",
     ),
+    path(
+        "password-strength-checker/",
+        users_views.StrengthCheckerView.as_view(),
+        name="strength-checker",
+    ),
 ]
