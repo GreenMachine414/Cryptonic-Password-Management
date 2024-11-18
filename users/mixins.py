@@ -16,6 +16,12 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):  # noqa: D101
     login_url = "/accounts/login/"  # Ensure this is set to your login URL
 
     def handle_no_permission(self):  # noqa: D102
+        # Check if there is a 'next' parameter in the request's GET data
+        next_url = self.request.GET.get("next", "")
+        # If there is a next parameter, append it to the login URL
+        if next_url:
+            return redirect(f"{self.login_url}?next={next_url}")
+        # Otherwise, just redirect to the login URL
         return redirect(self.login_url)
 
 
