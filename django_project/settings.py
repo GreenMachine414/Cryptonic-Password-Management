@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third-party apps
     "django_bootstrap5",
-    "fontawesomefree",
     # local apps
     "users.apps.UsersConfig",
     "user_profile.apps.UserProfileConfig",
