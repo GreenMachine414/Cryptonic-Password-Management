@@ -17,7 +17,7 @@ class SignUpView(CreateView):
 
     model = CustomUser
     form_class = CustomUserCreationForm
-    template_name = "generic_create_update_form.html"
+    template_name = "registration/signup.html"
     success_url = reverse_lazy("login")
     extra_context = {"title_text": "Sign Up", "button_text": "Register"}
 

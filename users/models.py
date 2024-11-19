@@ -1,5 +1,8 @@
 """Accounts models."""
 
+import base64
+import secrets
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -56,6 +59,22 @@ class Password(models.Model):
     def __str__(self):
         """Get the string representation of the object."""
         return f"{self.website} - {self.website_username}"
+
+    def encrypt_password(self, raw_password):
+        """Encrypt the password using secrets."""
+        key = secrets.token_bytes(32)
+        encrypted = base64.b64encode(key + raw_password.encode())
+        return encrypted.decode()
+
+    def decrypt_password(self):
+        """Decrypt the stored password."""
+        decoded = base64.b64decode(self.password_encrypted.encode())
+        return decoded[32:].decode()
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only encrypt on creation
+            self.password_encrypted = self.encrypt_password(self.password_encrypted)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("Password")
