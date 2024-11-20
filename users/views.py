@@ -142,3 +142,11 @@ class StrengthCheckerView(CustomLoginRequiredMixin, generic.TemplateView):
     success_url = reverse_lazy("users:strength-checker")
     template_name = "strength_checker.html"
     login_url = "/accounts/login/"  # Ensure this path matches your project's login path
+
+
+class PasswordGeneratorView(CustomLoginRequiredMixin, generic.TemplateView):
+    """View to display the password strength checker page."""
+
+    success_url = reverse_lazy("users:password-generator")
+    template_name = "password_generator.html"
+    login_url = "/accounts/login/"  # Ensure this path matches your project's login path

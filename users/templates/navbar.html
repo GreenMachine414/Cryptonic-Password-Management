@@ -119,18 +119,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:create-password' %}">
-                                <i class="fa-solid fa-key"></i> Add Password
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'users:password-list' %}">
-                                <i class="fa-solid fa-lock"></i> View Passwords
+                                <i class="fa-solid fa-lock"></i> Password Manager
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'users:strength-checker' %}">
                                 <i class="fa-solid fa-shield-alt"></i> Strength Checker
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:password-generator' %}">
+                                <i class="fas fa-fingerprint"></i> Password Generator
                             </a>
                         </li>
                     </ul>

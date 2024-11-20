@@ -28,4 +28,9 @@ urlpatterns = [
         users_views.StrengthCheckerView.as_view(),
         name="strength-checker",
     ),
+    path(
+        "password-generator/",
+        users_views.PasswordGeneratorView.as_view(),
+        name="password-generator",
+    ),
 ]
