@@ -33,4 +33,14 @@ urlpatterns = [
         users_views.PasswordGeneratorView.as_view(),
         name="password-generator",
     ),
+    path(
+        "subscription/",
+        users_views.SubscriptionView.as_view(),
+        name="subscription",
+    ),
+    path(
+        "plan/",
+        users_views.PlanView.as_view(),
+        name="plan",
+    ),
 ]

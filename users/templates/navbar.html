@@ -84,6 +84,38 @@
                 transform: translateY(-2px);
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             }
+
+            .btn-upgrade {
+                background-color: #ffd700;
+                color: #2a4365;
+                font-weight: bold;
+                padding: 0.5rem 1.5rem;
+                border-radius: 5px;
+                margin-right: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .btn-upgrade:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                background-color: #ffed4a;
+            }
+
+            .btn-plan {
+                background-color: #4CAF50;
+                color: white;
+                font-weight: bold;
+                padding: 0.5rem 1.5rem;
+                border-radius: 5px;
+                margin-right: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .btn-plan:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                background-color: #45a049;
+            }
         </style>
     </head>
     <body>
@@ -109,11 +141,6 @@
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">
-                                <i class="fa-solid fa-circle-info"></i> About
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'team' %}">
                                 <i class="fa-solid fa-people-group"></i> Team
                             </a>
@@ -136,6 +163,19 @@
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         {% if user.is_authenticated %}
+                            {% if user.is_paid %}
+                                <li class="nav-item">
+                                    <a class="nav-link btn-plan" href="{% url 'users:plan' %}">
+                                        <i class="fas fa-star"></i> My Plan
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link btn-upgrade" href="{% url 'users:subscription' %}">
+                                        <i class="fas fa-crown"></i> Upgrade
+                                    </a>
+                                </li>
+                            {% endif %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center gap-2"
                                    href="#"
@@ -155,7 +195,7 @@
                                              height="35"
                                              width="35">
                                     {% endif %}
-                                    <span>{{ user.email }}</span>
+                                    <span>{{ user.username }}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>

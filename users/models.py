@@ -54,7 +54,7 @@ class Password(models.Model):
     is_password = models.BooleanField(_("is password"), default=True)
     created = models.DateTimeField(_("created"), auto_now_add=True)
     last_used = models.DateTimeField(_("last used"), null=True, blank=True)
-    password_encrypted = models.CharField(_("password encrypted"), max_length=255)
+    password_encrypted = models.CharField(_("password"), max_length=255)
 
     def __str__(self):
         """Get the string representation of the object."""

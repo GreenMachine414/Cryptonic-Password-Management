@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import AccessMixin
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 
 
@@ -37,6 +36,6 @@ class PaidUserRequiredMixin(CustomLoginRequiredMixin):
 
         # Check if the user is paid
         if not request.user.is_paid:
-            raise PermissionDenied("You must be a paid user to access this page.")
+            return redirect("users:subscription")
 
         return super().dispatch(request, *args, **kwargs)
