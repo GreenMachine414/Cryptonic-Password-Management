@@ -241,6 +241,10 @@ class LoginMFAView(generic.TemplateView):
             request.session["mfa_user_id"] = user.id
             return redirect("users:verify-mfa")
 
+        # Handle invalid login
+        messages.error(request, "Invalid credentials")
+        return redirect("login")
+
 
 class VerifyMFAView(generic.TemplateView):
     template_name = "verify_mfa.html"
