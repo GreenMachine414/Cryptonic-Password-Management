@@ -1,10 +1,16 @@
 """Accounts view."""
 
+import random
+from datetime import timedelta
+
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import redirect
+from django.core.mail import send_mail
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views import generic
 from django.views.generic import CreateView
 
@@ -12,6 +18,7 @@ from users.forms import CustomUserCreationForm
 from users.models import CustomUser, Password
 
 from .mixins import CustomLoginRequiredMixin, PaidUserRequiredMixin
+from .models import OTPCode
 
 
 class SignUpView(CreateView):
@@ -212,3 +219,44 @@ class EndSubscriptionView(PaidUserRequiredMixin, generic.TemplateView):
         user.save()
         messages.success(request, "Your subscription has been cancelled.")
         return redirect("users:password-list")
+
+
+class LoginMFAView(generic.TemplateView):
+    def post(self, request):
+        user = authenticate(username=request.POST["username"], password=request.POST["password"])
+        if user:
+            code = "".join([str(random.randint(0, 9)) for _ in range(6)])
+            expires_at = timezone.now() + timedelta(minutes=10)
+
+            OTPCode.objects.create(user=user, code=code, expires_at=expires_at)
+
+            send_mail(
+                "Your Login Code",
+                f"Your verification code is: {code}",
+                "Taylormichaelandrus@gmail.com",  # Update this to match EMAIL_HOST_USER
+                [user.email],
+                fail_silently=False,
+            )
+
+            request.session["mfa_user_id"] = user.id
+            return redirect("users:verify-mfa")
+
+
+class VerifyMFAView(generic.TemplateView):
+    template_name = "verify_mfa.html"
+
+    def post(self, request):
+        code = request.POST["code"]
+        user_id = request.session.get("mfa_user_id")
+
+        otp = OTPCode.objects.filter(
+            user_id=user_id, code=code, expires_at__gt=timezone.now()
+        ).first()
+
+        if otp:
+            login(request, otp.user)
+            otp.delete()
+            return redirect("home")
+
+        # Handle invalid code case
+        return render(request, self.template_name, {"error": "Invalid verification code"})

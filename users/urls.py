@@ -44,4 +44,6 @@ urlpatterns = [
         name="plan",
     ),
     path("end-subscription/", users_views.EndSubscriptionView.as_view(), name="end-subscription"),
+    path("login/mfa/", users_views.LoginMFAView.as_view(), name="login-mfa"),
+    path("verify-mfa/", users_views.VerifyMFAView.as_view(), name="verify-mfa"),
 ]

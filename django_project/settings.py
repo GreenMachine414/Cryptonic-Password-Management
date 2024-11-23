@@ -163,3 +163,11 @@ SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # For development
+EMAIL_HOST = "smtp.gmail.com"  # For production with Gmail
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "Taylormichaelandrus@gmail.com"
+EMAIL_HOST_PASSWORD = "ogir pjti lopp devh"
+DEFAULT_FROM_EMAIL = "Taylormichaelandrus@gmail.com"

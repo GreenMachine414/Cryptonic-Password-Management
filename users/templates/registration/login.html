@@ -23,7 +23,9 @@
                                 </div>
                             {% endif %}
                         {% endif %}
-                        <form method="post" action="{% url 'login' %}" class="needs-validation">
+                        <form method="post"
+                              action="{% url 'users:login-mfa' %}"
+                              class="needs-validation">
                             {% csrf_token %}
                             {% bootstrap_form form %}
                             <input type="hidden" name="next" value="{{ next }}" />

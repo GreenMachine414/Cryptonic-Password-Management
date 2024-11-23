@@ -79,3 +79,10 @@ class Password(models.Model):
     class Meta:
         verbose_name = _("Password")
         verbose_name_plural = _("Passwords")
+
+
+class OTPCode(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
