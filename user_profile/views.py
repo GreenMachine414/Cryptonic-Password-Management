@@ -35,7 +35,7 @@ class UserProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = models.UserProfile
     form_class = forms.UserProfileUpdateForm
     success_url = reverse_lazy("user_profile:profile_detail")
-    template_name = "generic_create_update_form.html"
+    template_name = "updateuserprofile.html"
     extra_context = {"title_text": "Update Profile", "button_text": "Update"}
 
     def get_object(self, queryset: list = None):
@@ -61,9 +61,7 @@ class UserProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
             "last_name": self.request.user.last_name,
         }
 
-        context["form"] = forms.UserProfileUpdateForm(
-            instance=user_profile, initial=initial
-        )
+        context["form"] = forms.UserProfileUpdateForm(instance=user_profile, initial=initial)
 
         return context
 

@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+{% block title %}
+    Available Users
+{% endblock title %}
+{% block content %}
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+            {% if object_list %}
+                <ol>
+                    {% for user in object_list %}
+                        <li>
+                            <a href="{% url 'users:user-detail' pk=user.pk %}">{{ user.username }}</a>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <p>No users are in here.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

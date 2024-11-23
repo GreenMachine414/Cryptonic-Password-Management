@@ -1,43 +1,116 @@
 {% extends "base_generic.html" %}
-{% block title %}
-    About Cryptonic
-{% endblock title %}
 {% block content %}
-    <div class="container py-5">
-        <section class="mb-5">
-            <h2 class="display-4 text-primary">Vision Statement</h2>
-            <p class="lead">
-                Cryptonic empowers companies and individuals to elevate their digital security. Unlike traditional password encryption services, we utilize cutting-edge encryption algorithms that generate unique, non-replicable outputs for each password. In addition, we offer intuitive tools to help users create even stronger passwords.
-            </p>
-        </section>
-        <section class="mb-5">
-            <h2 class="display-4 text-primary">Description</h2>
-            <p class="lead">
-                Our solution is designed to secure plaintext passwords by encrypting them with the most advanced cryptographic methods available. With a seamless and efficient user experience, Cryptonic combines the latest encryption and hashing algorithms to ensure that users are protected from data breaches and malicious online threats.
-            </p>
-        </section>
-        <section class="mb-5">
-            <h2 class="display-4 text-primary">Target Users</h2>
-            <p class="lead">
-                Cryptonic serves businesses that need to safeguard their users' passwords, as well as individuals who are serious about protecting their digital identities. With the increase in high-profile security breaches, including instances where corporate executives have had their credentials compromised, there is a growing demand for robust, reliable password security solutions.
-            </p>
-        </section>
-        <section>
-            <h2 class="display-4 text-primary">User Benefits</h2>
-            <ul class="list-unstyled">
-                <li class="mb-2">
-                    <i class="bi bi-shield-lock-fill text-success"></i> <strong>State-of-the-art encryption technology</strong> for unmatched security.
-                </li>
-                <li class="mb-2">
-                    <i class="bi bi-person-check-fill text-success"></i> <strong>Intuitive and user-friendly interface</strong> for hassle-free password management.
-                </li>
-                <li class="mb-2">
-                    <i class="bi bi-box-arrow-in-right text-success"></i> <strong>Seamless integration</strong> with existing systems and platforms.
-                </li>
-                <li class="mb-2">
-                    <i class="bi bi-headset text-success"></i> <strong>24/7 customer support</strong> to address all your concerns and needs.
-                </li>
-            </ul>
-        </section>
+    <!-- Hero Section -->
+    <div class="about-hero bg-primary bg-gradient text-white py-5 mb-5 shadow-lg">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold">About Cryptonic</h1>
+            <p class="lead">Securing the digital future, one password at a time</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row g-4">
+            <!-- Vision Section -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-eye fa-2x text-primary me-3"></i>
+                            <h2 class="h3 mb-0">Vision Statement</h2>
+                        </div>
+                        <p class="card-text">
+                            For Companies that want to keep their users safe or individual users who want to enhance their digital security. Unlike other online password encryption, our product offers a combination of the most secure encryption algorithms that does not allow duplicate encrypted password outputs along with tools to help users make their passwords even more secure.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Description Section -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-info-circle fa-2x text-primary me-3"></i>
+                            <h2 class="h3 mb-0">Description</h2>
+                        </div>
+                        <p class="card-text">
+                            Our product encrypts plaintext passwords inputted by the user to enhance the online security of the user. Our product plans to combine algorithms of the most modern and secure encryption and hash practices to protect the user from potential breaches. The idea is to make our service quick and easy, yet still providing the best and most efficient password secure from breaches and online attackers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Target Users Section -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-users fa-2x text-primary me-3"></i>
+                            <h2 class="h3 mb-0">Target Users</h2>
+                        </div>
+                        <p class="card-text">
+                            Companies that wish to encrypt the passwords of their users and anyone who is conscious about their password security. With recent security breaches at major companies, or even stolen passwords owned by the company CEO account, more companies are looking to invest more money into data security.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Benefits Section -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-star fa-2x text-primary me-3"></i>
+                            <h2 class="h3 mb-0">User Benefits</h2>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item border-0">
+                                <i class="fas fa-shield-alt text-primary me-2"></i>
+                                Advanced encryption technology for maximum security
+                            </li>
+                            <li class="list-group-item border-0">
+                                <i class="fas fa-user-friends text-primary me-2"></i>
+                                User-friendly interface that makes it easy to manage passwords
+                            </li>
+                            <li class="list-group-item border-0">
+                                <i class="fas fa-puzzle-piece text-primary me-2"></i>
+                                Seamless integration with existing systems and applications
+                            </li>
+                            <li class="list-group-item border-0">
+                                <i class="fas fa-headset text-primary me-2"></i>
+                                24/7 customer support to assist with any inquiries
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Stats Section -->
+        <div class="row mt-5 text-center g-4">
+            <div class="col-md-3">
+                <div class="p-4 bg-light rounded-3 shadow-sm">
+                    <i class="fas fa-lock fa-2x text-primary mb-3"></i>
+                    <h3 class="h2 fw-bold">256-bit</h3>
+                    <p class="text-muted">Encryption Standard</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4 bg-light rounded-3 shadow-sm">
+                    <i class="fas fa-users fa-2x text-primary mb-3"></i>
+                    <h3 class="h2 fw-bold">10K+</h3>
+                    <p class="text-muted">Active Users</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4 bg-light rounded-3 shadow-sm">
+                    <i class="fas fa-shield-alt fa-2x text-primary mb-3"></i>
+                    <h3 class="h2 fw-bold">99.9%</h3>
+                    <p class="text-muted">Security Rate</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4 bg-light rounded-3 shadow-sm">
+                    <i class="fas fa-clock fa-2x text-primary mb-3"></i>
+                    <h3 class="h2 fw-bold">24/7</h3>
+                    <p class="text-muted">Support Available</p>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock content %}

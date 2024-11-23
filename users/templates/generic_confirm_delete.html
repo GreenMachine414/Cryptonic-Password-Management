@@ -1,20 +1,50 @@
 {% extends "base_generic.html" %}
 {% load django_bootstrap5 %}
-{% block title %}
-    {{ title_text }}
-{% endblock title %}
 {% block content %}
-    <div class="d-flex justify-content-center">
-        <div class="col-md-4">
-            <form method="post">
-                {% csrf_token %}
-                <p>Are you sure you want to delete "{{ object }}"?</p>
-                {% bootstrap_form form %}
-                {{ form.media }}
-                <div class="text-center">
-                    <button type="submit" class="btn btn-danger">Confirm</button>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-danger text-white p-4 text-center">
+                        <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                        <h3 class="card-title mb-0">Delete Password</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <p class="lead">Are you sure you want to delete the password for:</p>
+                            <h4 class="text-danger mb-3">{{ object.website }}</h4>
+                            <p class="text-muted">This action cannot be undone.</p>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            {{ form.media }}
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-danger btn-lg">
+                                    <i class="fas fa-trash-alt me-2"></i>Delete Password
+                                </button>
+                                <a href="{% url 'users:password-detail' pk=object.pk %}"
+                                   class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left me-2"></i>Go Back
+                                </a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
+    <style>
+.card {
+    border-radius: 15px;
+}
+
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+    </style>
 {% endblock content %}

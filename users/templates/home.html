@@ -1,29 +1,48 @@
 {% extends "base_generic.html" %}
+{% load static %}
 {% block content %}
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="p-5 mb-4 bg-light rounded-3">
-        <div class="py-5">
-            <h1 class="display-3 fw-bold">Cryptonic</h1>
-            <p>Cryptonic is a password solution that will make your passwords stronger and secure.</p>
-            <p class="col-md-8 fs-4">
-                <a class="btn btn-primary btn-lg" href="{% url 'about' %}" role="button">Learn more</a>
-            </p>
+    <!-- Hero Section -->
+    <div class="hero-section p-5 mb-4 bg-primary bg-gradient rounded-3 text-white shadow-lg">
+        <div class="container py-5 text-center">
+            <h1 class="display-2 fw-bold mb-4">Cryptonic</h1>
+            <p class="lead fs-3 mb-4">Elevate your digital security with military-grade password protection and management.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a class="btn btn-light btn-lg" href="{% url 'about' %}" role="button">
+                    <i class="fa-solid fa-circle-info"></i> Learn More
+                </a>
+                <a class="btn btn-outline-light btn-lg"
+                   href="{% url 'users:signup' %}"
+                   role="button">
+                    <i class="fas fa-user-plus me-2"></i>Get Started
+                </a>
+            </div>
         </div>
     </div>
-    <div class="py-5">
-        <div class="row align-items-md-stretch">
-            <div class="col-md-6">
-                <div class="h-100 p-5 bg-light rounded-3">
-                    <p>
-                        Cryptonic includes a password manager so that you can store your login information for as many websites as you want
-                    </p>
+    <!-- Features Section -->
+    <div class="features-section py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="feature-card h-100 p-4 bg-light rounded-3 shadow-sm">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-database fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Password Manager</h3>
+                        <p class="mb-0">
+                            Store unlimited passwords securely with our advanced password management system. Access them anywhere, anytime.
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="h-100 p-5 bg-light rounded-3">
-                    <p>
-                        We encrypt your passwords so that you worry less about your security. Our randomly generated passwords are guaranteed also guaranteed to make you safer.
-                    </p>
+                <div class="col-md-6">
+                    <div class="feature-card h-100 p-4 bg-light rounded-3 shadow-sm">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-lock fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Military-Grade Encryption</h3>
+                        <p class="mb-0">
+                            Your data is protected with AES-256 encryption, ensuring maximum security for all your sensitive information.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
