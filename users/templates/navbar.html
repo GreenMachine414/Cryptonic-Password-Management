@@ -8,119 +8,214 @@
         <meta name="keywords"
               content="cryptonic, password management, password encryption, secure passwords, encryption, password protection, cryptographic security">
         <title>Cryptonic</title>
-        <!-- Load static tag here -->
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <style>
-        .navbar-logo {
-            height: 30px;
-            width: auto;
-        }
+            .navbar {
+                padding: 0.7rem 0;
+                background: linear-gradient(to right, #2a4365, #4299e1) !important;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
 
-        .navbar-profile-pic {
-            height: 30px;
-            width: 30px;
-        }
+            .navbar-brand {
+                font-weight: bold;
+                font-size: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .navbar-logo {
+                height: 35px;
+                width: auto;
+                transition: transform 0.3s ease;
+            }
+
+            .navbar-brand:hover .navbar-logo {
+                transform: scale(1.1);
+            }
+
+            .nav-link {
+                font-weight: 500;
+                padding: 0.5rem 1rem !important;
+                transition: all 0.3s ease;
+                border-radius: 5px;
+                margin: 0 0.2rem;
+            }
+
+            .nav-link:hover {
+                background: rgba(255,255,255,0.1);
+                transform: translateY(-1px);
+            }
+
+            .navbar-profile-pic {
+                height: 35px;
+                width: 35px;
+                border: 2px solid white;
+                transition: transform 0.3s ease;
+            }
+
+            .dropdown-menu {
+                border: none;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                border-radius: 8px;
+            }
+
+            .dropdown-item {
+                padding: 0.7rem 1.5rem;
+                transition: all 0.2s ease;
+            }
+
+            .dropdown-item:hover {
+                background-color: #f8f9fa;
+                transform: translateX(5px);
+            }
+
+            .btn-sign-up {
+                background-color: white;
+                color: #4299e1;
+                font-weight: bold;
+                padding: 0.5rem 1.5rem;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+
+            .btn-sign-up:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+
+            .btn-upgrade {
+                background-color: #ffd700;
+                color: #2a4365;
+                font-weight: bold;
+                padding: 0.5rem 1.5rem;
+                border-radius: 5px;
+                margin-right: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .btn-upgrade:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                background-color: #ffed4a;
+            }
+
+            .btn-plan {
+                background-color: #4CAF50;
+                color: white;
+                font-weight: bold;
+                padding: 0.5rem 1.5rem;
+                border-radius: 5px;
+                margin-right: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .btn-plan:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                background-color: #45a049;
+            }
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'home' %}">
                     <img src="{% static 'img/logo.webp' %}"
                          alt="Logo"
                          class="navbar-logo"
-                         height="30"
-                         width="auto">
+                         height="35"
+                         width="35">
                     Cryptonic
                 </a>
                 <button class="navbar-toggler"
                         type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarsExampleDefault"
-                        aria-controls="navbarsExampleDefault"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent"
+                        aria-controls="navbarContent"
                         aria-expanded="false"
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">
-                                <i class="fa-solid fa-circle-info"></i> About
-                            </a>
-                        </li>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'team' %}">
                                 <i class="fa-solid fa-people-group"></i> Team
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wireframes' %}">
-                                <i class="fa-regular fa-square"></i> Wireframes
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:create-password' %}">
-                                <i class="fa-solid fa-key"></i> Add Password
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'users:password-list' %}">
-                                <i class="fa-solid fa-lock"></i> View Passwords
+                                <i class="fa-solid fa-lock"></i> Password Manager
                             </a>
                         </li>
-                        <!-- Add new Strength Checker button here -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'users:strength-checker' %}">
                                 <i class="fa-solid fa-shield-alt"></i> Strength Checker
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:password-generator' %}">
+                                <i class="fas fa-fingerprint"></i> Password Generator
+                            </a>
+                        </li>
                     </ul>
-                </div>
-                <div class="navbar-collapse collapse" id="navbarsExampleDefault">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav ms-auto">
                         {% if user.is_authenticated %}
-                            <div class="dropdown">
-                                <a class="nav-link dropdown-toggle"
+                            {% if user.is_paid %}
+                                <li class="nav-item">
+                                    <a class="nav-link btn-plan" href="{% url 'users:plan' %}">
+                                        <i class="fas fa-star"></i> My Plan
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link btn-upgrade" href="{% url 'users:subscription' %}">
+                                        <i class="fas fa-crown"></i> Upgrade
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+                                   href="#"
                                    role="button"
-                                   data-toggle="dropdown"
                                    data-bs-toggle="dropdown"
                                    aria-expanded="false">
                                     {% if user.picture %}
                                         <img src="{{ user.picture.url }}"
                                              alt="Profile Picture"
-                                             class="rounded-circle img-thumbnail navbar-profile-pic"
-                                             height="30"
-                                             width="30">
+                                             class="rounded-circle navbar-profile-pic"
+                                             height="35"
+                                             width="35">
                                     {% else %}
                                         <img src="{% static 'img/user-icon.png' %}"
                                              alt="Profile Picture"
-                                             class="rounded-circle img-thumbnail navbar-profile-pic"
-                                             height="30"
-                                             width="30">
+                                             class="rounded-circle navbar-profile-pic"
+                                             height="35"
+                                             width="35">
                                     {% endif %}
-                                    {{ user.email }}
+                                    <span>{{ user.username }}</span>
                                 </a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
                                         <a class="dropdown-item" href="{% url 'user_profile:profile_detail' %}">
-                                            <i class="fa-solid fa-user-cog"></i> Profile
+                                            <i class="fa-solid fa-user-cog me-2"></i> Profile
                                         </a>
                                     </li>
                                     <li>
-                                        <div class="dropdown-divider"></div>
+                                        <hr class="dropdown-divider">
                                     </li>
                                     <li>
                                         <form method="post" action="{% url 'logout' %}">
                                             {% csrf_token %}
                                             <button type="submit" class="dropdown-item">
-                                                <i class="fa-solid fa-sign-out-alt"></i> Log out
+                                                <i class="fa-solid fa-sign-out-alt me-2"></i> Log out
                                             </button>
                                         </form>
                                     </li>
                                 </ul>
-                            </div>
+                            </li>
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'login' %}">
@@ -128,7 +223,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'users:signup' %}">
+                                <a class="nav-link btn-sign-up" href="{% url 'users:signup' %}">
                                     <i class="fa-solid fa-user-edit"></i> Sign up
                                 </a>
                             </li>

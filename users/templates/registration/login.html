@@ -1,32 +1,99 @@
 {% extends "base_generic.html" %}
 {% load django_bootstrap5 %}
-{% block title %}
-    Login
-{% endblock title %}
 {% block content %}
-    <div class="d-flex justify-content-center">
-        {% if next %}
-            {% if user.is_authenticated %}
-                <div class="alert alert-warning" role="alert">
-                    Your account doesn't have access to this page. To proceed, please login with
-                    an account that has access.
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-primary text-white text-center p-4">
+                        <i class="fas fa-sign-in-alt fa-2x mb-3"></i>
+                        <h3 class="card-title mb-0">Welcome Back</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        {% if next %}
+                            {% if user.is_authenticated %}
+                                <div class="alert alert-warning" role="alert">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    Your account doesn't have access to this page. To proceed, please login with an account that has access.
+                                </div>
+                            {% else %}
+                                <div class="alert alert-info" role="alert">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Please login to continue.
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <form method="post"
+                              action="{% url 'users:login-mfa' %}"
+                              class="needs-validation">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            <input type="hidden" name="next" value="{{ next }}" />
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </button>
+                            </div>
+                            <div class="text-center mt-4">
+                                <a href="{% url 'password_reset' %}" class="text-decoration-none">
+                                    <i class="fas fa-key me-2"></i>Forgot Password?
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer bg-light text-center py-3">
+                        <p class="mb-0">
+                            Don't have an account?
+                            <a href="{% url 'users:signup' %}" class="text-decoration-none">
+                                <i class="fas fa-user-plus me-1"></i>Sign Up
+                            </a>
+                        </p>
+                    </div>
                 </div>
-            {% else %}
-                <div class="alert alert-warning" role="alert">Please login to see this page.</div>
-            {% endif %}
-        {% endif %}
-        <div class="col-md-4">
-            <form method="post" action="{% url 'login' %}">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                <p>
-                    <a href="{% url 'password_reset' %}">Lost password?</a>
-                </p>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary justify-center">Login</button>
-                </div>
-                <input type="hidden" name="next" value="{{ next }}" class="form-control" />
-            </form>
+                {% if settings.SOCIAL_AUTH_PROVIDERS %}
+                    <div class="text-center mt-4">
+                        <p class="text-muted">Or continue with</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            {% if 'google' in settings.SOCIAL_AUTH_PROVIDERS %}
+                                <a href="{% url 'social:begin' 'google-oauth2' %}"
+                                   class="btn btn-outline-dark">
+                                    <i class="fab fa-google me-2"></i>Google
+                                </a>
+                            {% endif %}
+                            {% if 'github' in settings.SOCIAL_AUTH_PROVIDERS %}
+                                <a href="{% url 'social:begin' 'github' %}" class="btn btn-outline-dark">
+                                    <i class="fab fa-github me-2"></i>GitHub
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
+    <style>
+.card {
+    border-radius: 15px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.alert {
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+    </style>
 {% endblock content %}

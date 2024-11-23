@@ -1,0 +1,118 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-primary text-white p-4">
+                        <h2 class="h3 mb-0">
+                            <i class="fas fa-crown me-2"></i>Upgrade to Premium
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="pricing-features mb-4">
+                            <h4 class="text-primary mb-3">Premium Features Include:</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="fas fa-check text-success me-3"></i>
+                                    <div>
+                                        <strong>Unlimited Password Storage</strong>
+                                        <p class="mb-0 text-muted">Store all your passwords securely</p>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="fas fa-check text-success me-3"></i>
+                                    <div>
+                                        <strong>Advanced Encryption</strong>
+                                        <p class="mb-0 text-muted">Military-grade protection for your data</p>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="fas fa-check text-success me-3"></i>
+                                    <div>
+                                        <strong>Priority Support</strong>
+                                        <p class="mb-0 text-muted">24/7 access to our support team</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="price-section text-center mb-4">
+                            <h3 class="display-4 text-primary mb-0">$9.99</h3>
+                            <p class="text-muted">per month</p>
+                        </div>
+                        <form method="post" id="payment-form">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label">Card Information</label>
+                                <div id="card-element" class="form-control p-3">
+                                    <!-- Stripe Elements will be inserted here -->
+                                </div>
+                                <div id="card-errors" class="text-danger mt-2" role="alert"></div>
+                            </div>
+                            <button class="btn btn-primary btn-lg w-100" type="submit">
+                                <i class="fas fa-lock me-2"></i>Secure Upgrade Now
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-footer bg-light p-4 text-center">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-2"></i>
+                            Secured by industry-leading encryption
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+.card {
+    border-radius: 15px;
+}
+
+.list-group-item {
+    border: none;
+    padding: 1rem 0;
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+}
+
+#card-element {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+    </style>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+const stripe = Stripe('your_publishable_key');
+const elements = stripe.elements();
+const card = elements.create('card');
+card.mount('#card-element');
+
+const form = document.getElementById('payment-form');
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const {token, error} = await stripe.createToken(card);
+
+    if (error) {
+        const errorElement = document.getElementById('card-errors');
+        errorElement.textContent = error.message;
+    } else {
+        const response = await fetch('/process-payment/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({token: token.id})
+        });
+        if (response.ok) {
+            window.location.href = "{% url 'users:password-list' %}";
+        }
+    }
+});
+    </script>
+{% endblock content %}
