@@ -1,5 +1,6 @@
 """Accounts view."""
 
+from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
@@ -201,4 +202,13 @@ class PlanView(PaidUserRequiredMixin, generic.TemplateView):  # noqa: D101
         user = request.user
         user.is_paid = True
         user.save()
+        return redirect("users:password-list")
+
+
+class EndSubscriptionView(PaidUserRequiredMixin, generic.TemplateView):
+    def post(self, request):
+        user = request.user
+        user.is_paid = False
+        user.save()
+        messages.success(request, "Your subscription has been cancelled.")
         return redirect("users:password-list")

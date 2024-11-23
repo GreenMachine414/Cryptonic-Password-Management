@@ -68,6 +68,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="mt-4 text-center">
+                            <form method="post" action="{% url 'users:end-subscription' %}">
+                                {% csrf_token %}
+                                <button type="submit"
+                                        class="btn btn-outline-danger"
+                                        onclick="return confirm('Are you sure you want to end your premium subscription?')">
+                                    <i class="fas fa-times-circle me-2"></i>End Subscription
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

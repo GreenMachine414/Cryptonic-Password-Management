@@ -43,4 +43,5 @@ urlpatterns = [
         users_views.PlanView.as_view(),
         name="plan",
     ),
+    path("end-subscription/", users_views.EndSubscriptionView.as_view(), name="end-subscription"),
 ]
