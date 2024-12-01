@@ -24,6 +24,7 @@ django-lint:
     - source venv/bin/activate
     - pip install --upgrade pip
     - pip install pylama
+    - pip install ruff
   script:
     - pylama .
 
