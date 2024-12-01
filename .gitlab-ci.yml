@@ -1,70 +1,71 @@
 stages:
-    - lint
-    - build
-    - test
+  - lint
+  - build
+  - test
 
 variables:
-    PIP_CACHE_DIR: '$CI_PROJECT_DIR/.cache/pip'
+  PIP_CACHE_DIR: '$CI_PROJECT_DIR/.cache/pip'
+  DATABASE_URL: 'sqlite:///db.sqlite3' # Use an appropriate database for your pipeline
 
-# Pip's cache doesn't store the python packages
-# https://pip.pypa.io/en/stable/reference/pip_install/#caching
-#
-# If you want to also cache the installed packages, you have to install
-# them in a virtualenv and cache it as well.
 cache:
-    paths:
-        - .cache/pip/
-        - venv/
-        - staticfiles/
+  paths:
+    - .cache/pip/
+    - venv/
+    - staticfiles/
 
-# Defines the job in Static Analysis
+# Linting job
 django-lint:
-    image: python:3.11-alpine
-    stage: lint
-    tags:
-        - python
-    before_script:
-        - .gitlab/django_before_install.sh
-        - source venv/bin/activate
-    script:
-        - pylama .
+  image: python:3.11-alpine
+  stage: lint
+  tags:
+    - python
+  before_script:
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install --upgrade pip
+    - pip install pylama
+  script:
+    - pylama .
 
-# Defines the job in build
-# Checks if migrations files are missing
+# Build job for migrations and checks
 django-migrations:
-    image: python:3.11-alpine
-    stage: build
-    tags:
-        - python
-    needs: ['django-lint']
-    before_script:
-        - .gitlab/django_before_install.sh
-        - source venv/bin/activate
-    script:
-        - python3 manage.py makemigrations --check
-        - python3 manage.py migrate --check
-        - python3 manage.py check
-        - python3 manage.py check --database default
-        - python3 manage.py check --deploy
+  image: python:3.11-alpine
+  stage: build
+  tags:
+    - python
+  needs: ['django-lint']
+  before_script:
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+  script:
+    - python manage.py makemigrations --check
+    - python manage.py migrate --check
+    - python manage.py check
+    - python manage.py check --database default
+    - python manage.py check --deploy
 
-# Defines the job in test
+# Test job
 django-tests:
-    image: python:3.11-alpine
-    stage: test
-    tags:
-        - python
-    needs: ['django-migrations', 'django-lint']
-    before_script:
-        - .gitlab/django_before_install.sh
-        - source venv/bin/activate
-    script:
-        - coverage run manage.py test -v2
-        - coverage xml
-        - coverage report
-
-    coverage: '/TOTAL.*\s+(\d+%)$/'
-    artifacts:
-        reports:
-            coverage_report:
-                coverage_format: cobertura
-                path: coverage.xml
+  image: python:3.11-alpine
+  stage: test
+  tags:
+    - python
+  needs: ['django-migrations', 'django-lint']
+  before_script:
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+  script:
+    - python manage.py collectstatic --noinput
+    - coverage run manage.py test -v2
+    - coverage xml
+    - coverage report
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
