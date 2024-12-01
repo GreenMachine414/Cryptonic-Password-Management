@@ -23,10 +23,9 @@ django-lint:
     - python -m venv venv
     - source venv/bin/activate
     - pip install --upgrade pip
-    - pip install pylama
-    - pip install ruff
+    - pip install ruff # Only need to install ruff, remove pylama
   script:
-    - pylama .
+    - ruff . --fix # Use ruff for linting instead of pylama
 
 # Build job for migrations and checks
 django-migrations:
