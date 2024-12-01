@@ -25,7 +25,7 @@ django-lint:
     - pip install --upgrade pip
     - pip install ruff # Only need to install ruff, remove pylama
   script:
-    - ruff . --fix # Use ruff for linting instead of pylama
+    - ruff check . --fix # Use ruff for linting instead of pylama
 
 # Build job for migrations and checks
 django-migrations:
