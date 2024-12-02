@@ -58,6 +58,7 @@ django-tests:
     - source venv/bin/activate
     - pip install --upgrade pip
     - pip install -r requirements.txt
+    - pip install coverage
   script:
     - python manage.py collectstatic --noinput
     - coverage run manage.py test -v2
