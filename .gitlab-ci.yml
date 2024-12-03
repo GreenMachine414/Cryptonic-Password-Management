@@ -36,9 +36,11 @@ django-migrations:
   needs: ['django-lint']
   before_script:
     - python -m venv venv
+    - .gitlab/django_before_install.sh
     - source venv/bin/activate
     - pip install --upgrade pip
     - pip install -r requirements.txt
+    - python3 manage.py migrate
   script:
     - python manage.py makemigrations --check
     - python manage.py migrate --check
