@@ -54,7 +54,7 @@ django-tests:
   stage: test
   tags:
     - python
-  needs: ['django-build', 'django-lint']
+  needs: ['django-migrations', 'django-lint']
   before_script:
     - python -m venv venv
     - source venv/bin/activate
