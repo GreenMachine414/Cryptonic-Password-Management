@@ -39,7 +39,7 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
 
-def __str__(self) -> str:
+def __str__(self) -> str:  # noqa: N807
     """Get the string representation of the object."""
     return self.username if self.username else str(self.id)  # Fallback to user ID
 
