@@ -63,7 +63,13 @@ class UpdateUserView(UserPassesTestMixin, generic.UpdateView):
     """View to update user details."""
 
     model = CustomUser
-    fields = ["first_name", "last_name", "email"]  # Add any fields you want to allow editing
+    fields = [
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "email",
+    ]  # Add any fields you want to allow editing
     template_name = "generic_create_update_form.html"
     success_url = reverse_lazy("users:user-list")  # Redirect after update
     extra_context = {"title_text": "Update User", "button_text": "Update"}
