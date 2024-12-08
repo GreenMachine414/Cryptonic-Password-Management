@@ -33,6 +33,7 @@ class Password(models.Model):
     """A model for storing encrypted passwords associated with a user."""
 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="passwords")
+    username = models.CharField(_("username"), max_length=255)
     website = models.CharField(_("website"), max_length=255)
     website_username = models.CharField(_("website username"), max_length=255)
     is_password = models.BooleanField(_("is password"), default=True)
