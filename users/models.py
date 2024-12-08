@@ -11,27 +11,12 @@ from users.managers import CustomUserManager
 
 
 class CustomUser(AbstractUser):
-    """A custom User model.
-
-    Arguments:
-    ---------
-    AbstractUser : class
-        Django's `AbstractUser` class.
-
-    Returns:
-    -------
-    object:
-        `CustomUser` model.
-
-    """
-
     username = models.CharField(_("username"), max_length=150, unique=True, blank=True, null=True)
     email = models.EmailField(_("email address"), unique=True)
     first_name = models.CharField(_("first name"), max_length=150)
     last_name = models.CharField(_("last name"), max_length=150)
     is_paid = models.BooleanField(_("is paid"), default=True)
     num_stored_passwords = models.IntegerField(_("number of stored passwords"), default=0)
-    paid_access_expires = models.DateTimeField(_("paid access expires"), null=True, blank=True)
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]
@@ -41,7 +26,7 @@ class CustomUser(AbstractUser):
 
 def __str__(self) -> str:  # noqa: N807
     """Get the string representation of the object."""
-    return self.username if self.username else str(self.id)  # Fallback to user ID
+    return self.username if self.username else str(self.id)
 
 
 class Password(models.Model):
