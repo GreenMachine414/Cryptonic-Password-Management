@@ -107,10 +107,16 @@ class CreatePasswordView(PaidUserRequiredMixin, generic.CreateView):
     # Optionally, specify the login URL and a redirect field name
     login_url = "/accounts/login/"  # Change to your login path
 
-    def form_valid(self, form):  # noqa: D102
+    def form_valid(self, form):
         # Set the user to the currently logged-in user
         form.instance.user = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        # Update user's password count
+        self.request.user.num_stored_passwords += 1
+        self.request.user.save()
+
+        return response
 
 
 class PasswordListView(PaidUserRequiredMixin, generic.ListView):
@@ -178,6 +184,19 @@ class DeletePasswordView(PaidUserRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("users:password-list")
     template_name = "generic_confirm_delete.html"
     extra_context = {"title_text": "Delete Stored Password"}
+
+    def post(self, request, *args, **kwargs):
+        # Get the object before deletion
+        self.object = self.get_object()
+
+        # Delete the password
+        response = super().delete(request, *args, **kwargs)
+
+        # Update counter
+        request.user.num_stored_passwords -= 1
+        request.user.save()
+
+        return response
 
 
 class StrengthCheckerView(CustomLoginRequiredMixin, generic.TemplateView):
